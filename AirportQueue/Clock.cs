@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Runtime.ConstrainedExecution;
 using System.Threading;
@@ -7,21 +8,18 @@ namespace AirportQueue
 {
     public class Clock
     {
-        private const long SleepingTime = 10;
+        private const long SleepingTime = 100;
         private bool _running = true;
         private PassengerProducer _producer;
-        private PassengerConsumer _consumer;
+        private List<PassengerConsumer> _consumers;
         private long _millis;
 
-        public Time Time
-        {
-            get { return new Time(_millis); }
-        }
+        public Time Time => new Time(_millis);
 
-        public Clock(PassengerProducer producer, PassengerConsumer consumer, Time startTime)
+        public Clock(PassengerProducer producer, List<PassengerConsumer> consumers, Time startTime)
         {
             _producer = producer;
-            _consumer = consumer;
+            _consumers = consumers;
             _millis = startTime.Millis;
         }
 
@@ -38,7 +36,7 @@ namespace AirportQueue
                 {
                     Thread.Sleep((int) SleepingTime);
                     _producer.Tick(this);
-                    _consumer.Tick(this);
+                    _consumers.ForEach(consumer => consumer.Tick(this));
                     _millis += 1000;
                 }
             }

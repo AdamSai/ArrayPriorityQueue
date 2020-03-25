@@ -55,9 +55,9 @@ namespace AirportQueue
             {
                 category = Category.LateToFlight;
             }
-            else if (c < 10) category = Category.BusinessClass;
-            else if (c < 11) category = Category.Disabled;
-            else if (c < 15) category = Category.Family;
+            else if (c < 50) category = Category.BusinessClass;
+            else if (c < 70) category = Category.Disabled;
+            else if (c < 90) category = Category.Family;
             else category = Category.Monkey;
             
             Passenger passenger = new Passenger(NextPassengerId++, now, category, plane);

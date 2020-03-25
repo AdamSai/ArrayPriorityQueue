@@ -27,7 +27,7 @@ namespace AirportQueue
 
             if (_passenger != null)
             {
-                Time now = clock.Time;
+                var now = clock.Time;
                 if (_passenger.Plane.DepartureTime.CompareTo(now) < 0)
                 {
                     _passenger.Status = Status.MissedPlane;
@@ -46,19 +46,19 @@ namespace AirportQueue
             switch (_passenger.Category)
             {
                 case Category.LateToFlight:
-                    ProcessingTicksLeft = 60;
+                    ProcessingTicksLeft = 150;
                     break;
                 case Category.BusinessClass:
-                    ProcessingTicksLeft = 60;
+                    ProcessingTicksLeft = 150;
                     break;
                 case Category.Disabled:
-                    ProcessingTicksLeft = 180;
+                    ProcessingTicksLeft = 250;
                     break;
                 case Category.Family:
-                    ProcessingTicksLeft = 180;
+                    ProcessingTicksLeft = 250;
                     break;
                 case Category.Monkey:
-                    ProcessingTicksLeft = 60;
+                    ProcessingTicksLeft = 150;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

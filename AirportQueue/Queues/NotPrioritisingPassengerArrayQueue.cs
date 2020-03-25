@@ -27,7 +27,7 @@ namespace Sorting
         public Passenger Dequeue() {
             if (Size == 0)
                 throw new InvalidOperationException("Cannot remove from empty queue");
-            Passenger item = items[_head];
+            var item = items[_head];
             items[_head] = null;
             _head = (_head + 1) % items.Length;
             Size--;
@@ -37,7 +37,7 @@ namespace Sorting
         public Passenger Peek() {
             if (Size == 0)
                 throw new InvalidOperationException("Cannot peek into empty queue");
-            return items[Size];
+            return items[_head];
         }
 
         public bool IsEmpty()
